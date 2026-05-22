@@ -1,0 +1,160 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO1LCZRk4wbTmgEWM8bJBsZ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/wassimbayaza314-blip/blank-app/blob/main/Elysiane%20Dev%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# =========================================================\n",
+        "# SYSTEME ELYSIANE DEV - CORE & SECURITY ENGINE V1.5\n",
+        "# =========================================================\n",
+        "\n",
+        "# Base de données simulée\n",
+        "BASE_UTILISATEURS = {}  # {identifiant: mot_de_passe}\n",
+        "BASE_ESTIMATIONS_SECONDE = []\n",
+        "\n",
+        "TAUX_DE_CHANGE_OFFICIEL = {\n",
+        "    \"EUR\": 1.0, \"USD\": 1.09, \"DZD\": 146.0, \"AED\": 4.0\n",
+        "}\n",
+        "DICTIONNAIRE_PRIX_MONDIAL = {\n",
+        "    \"serveur_cloud\": 45.0, \"licence_logiciel\": 15.0, \"cable_reseau_10m\": 12.5, \"routeur_pro\": 120.0\n",
+        "}\n",
+        "\n",
+        "# ---------------------------------------------------------\n",
+        "# SÉCURITÉ : GESTION DES COMPTES\n",
+        "# ---------------------------------------------------------\n",
+        "def inscrire_entrepreneur(identifiant, mot_de_passe):\n",
+        "    \"\"\"Enregistre un nouvel entrepreneur de manière unique.\"\"\"\n",
+        "    if identifiant in BASE_UTILISATEURS:\n",
+        "        return \"⚠️ Erreur : Cet identifiant existe déjà.\"\n",
+        "    if len(mot_de_passe) < 6:\n",
+        "        return \"⚠️ Erreur : Le mot de passe doit contenir au moins 6 caractères.\"\n",
+        "\n",
+        "    BASE_UTILISATEURS[identifiant] = mot_de_passe\n",
+        "    return f\"✅ Compte créé avec succès pour l'utilisateur : {identifiant}\"\n",
+        "\n",
+        "def connecter_entrepreneur(identifiant, mot_de_passe):\n",
+        "    \"\"\"Vérifie les identifiants pour autoriser l'accès au système.\"\"\"\n",
+        "    if BASE_UTILISATEURS.get(identifiant) == mot_de_passe:\n",
+        "        return True\n",
+        "    return False\n",
+        "\n",
+        "# ---------------------------------------------------------\n",
+        "# MOTEUR FINANCIER SÉCURISÉ (V1.5)\n",
+        "# ---------------------------------------------------------\n",
+        "def generer_estimation_mondiale_securisee(session_active, client_nom, pays, devise, liste_materiaux, heures_travail, taux_horaire=25, taux_tva=0):\n",
+        "    \"\"\"\n",
+        "    Calcule l'estimation uniquement si la session utilisateur est active (connectée).\n",
+        "    \"\"\"\n",
+        "    # BLOCAGE DE SÉCURITÉ\n",
+        "    if not session_active:\n",
+        "        return \"❌ ACCÈS REFUSÉ : Veuillez vous connecter pour accéder aux données financières.\"\n",
+        "\n",
+        "    cout_materiaux_base = 0.0\n",
+        "    for m in liste_materiaux:\n",
+        "        cout_materiaux_base += DICTIONNAIRE_PRIX_MONDIAL.get(m.lower(), 0.0)\n",
+        "\n",
+        "    frais_imprevus_materiaux = cout_materiaux_base * 0.10\n",
+        "    cout_materiaux_total_eur = cout_materiaux_base + frais_imprevus_materiaux\n",
+        "    cout_main_doeuvre_eur = heures_travail * taux_horaire\n",
+        "    cout_production_eur = cout_materiaux_total_eur + cout_main_doeuvre_eur\n",
+        "\n",
+        "    taux_change = TAUX_DE_CHANGE_OFFICIEL.get(devise, 1.0)\n",
+        "    cout_production_local = cout_production_eur * taux_change\n",
+        "    marge_profit_local = cout_production_local * 0.20\n",
+        "    prix_ht_local = cout_production_local + marge_profit_local\n",
+        "    montant_tva_local = prix_ht_local * (taux_tva / 100)\n",
+        "    prix_cle_en_main = prix_ht_local + montant_tva_local\n",
+        "\n",
+        "    rapport = {\n",
+        "        \"Statut\": \"Document Officiel - Elysiane Dev\",\n",
+        "        \"Client\": client_nom,\n",
+        "        \"Pays Cible\": pays,\n",
+        "        \"Devise\": devise,\n",
+        "        \"VOTRE BÉNÉFICE NET SÉCURISÉ\": f\"{round(marge_profit_local, 2)} {devise}\",\n",
+        "        \"TOTAL FACTURÉ AU CLIENT (TTC)\": f\"{round(prix_cle_en_main, 2)} {devise}\"\n",
+        "    }\n",
+        "    BASE_ESTIMATIONS_SECONDE.append(rapport)\n",
+        "    return rapport\n",
+        "\n",
+        "# =========================================================\n",
+        "# ZONE DE TEST DES SÉCURITÉS\n",
+        "# =========================================================\n",
+        "print(\"--- TEST DU SYSTÈME DE SÉCURITÉ ELYSIANE DEV --- \\n\")\n",
+        "\n",
+        "# 1. Création d'un compte pro\n",
+        "print(inscrire_entrepreneur(\"wasim_dev\", \"Elysiane2026\"))\n",
+        "\n",
+        "# 2. Tentative d'accès SANS connexion (Doit être refusée)\n",
+        "print(\"\\n[Test 1] Tentative sans session active :\")\n",
+        "print(generer_estimation_mondiale_securisee(False, \"Client X\", \"Algérie\", \"DZD\", [\"routeur_pro\"], 10))\n",
+        "\n",
+        "# 3. Connexion réussie et accès au calculateur\n",
+        "print(\"\\n[Test 2] Tentative après connexion réussie :\")\n",
+        "session = connecter_entrepreneur(\"wasim_dev\", \"Elysiane2026\")\n",
+        "\n",
+        "if session:\n",
+        "    rapport_pro = generer_estimation_mondiale_securisee(\n",
+        "        session_active=session,\n",
+        "        client_nom=\"Sonatrach Partner\",\n",
+        "        pays=\"Algérie\",\n",
+        "        devise=\"DZD\",\n",
+        "        liste_materiaux=[\"serveur_cloud\", \"routeur_pro\"],\n",
+        "        heures_travail=40,\n",
+        "        taux_horaire=30,\n",
+        "        taux_tva=19\n",
+        "    )\n",
+        "    print(rapport_pro)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "abQqlXD78mMF",
+        "outputId": "132bc2b8-4a60-46d6-cd49-d9b36bb8ceb1"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "--- TEST DU SYSTÈME DE SÉCURITÉ ELYSIANE DEV --- \n",
+            "\n",
+            "✅ Compte créé avec succès pour l'utilisateur : wasim_dev\n",
+            "\n",
+            "[Test 1] Tentative sans session active :\n",
+            "❌ ACCÈS REFUSÉ : Veuillez vous connecter pour accéder aux données financières.\n",
+            "\n",
+            "[Test 2] Tentative après connexion réussie :\n",
+            "{'Statut': 'Document Officiel - Elysiane Dev', 'Client': 'Sonatrach Partner', 'Pays Cible': 'Algérie', 'Devise': 'DZD', 'VOTRE BÉNÉFICE NET SÉCURISÉ': '40339.8 DZD', 'TOTAL FACTURÉ AU CLIENT (TTC)': '288026.17 DZD'}\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
