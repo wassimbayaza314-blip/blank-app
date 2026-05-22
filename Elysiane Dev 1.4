@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyOY8BK5Et0QecXgvJse767S",
+      "authorship_tag": "ABX9TyPg66NkQN/S5v4mLb09rDTJ",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -24,87 +24,6 @@
       },
       "source": [
         "<a href=\"https://colab.research.google.com/github/wassimbayaza314-blip/blank-app/blob/main/Elysiane%20Dev%201.4\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": 1,
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "1H6yHxYX5DTy",
-        "outputId": "ea0a168f-12b7-43df-8b53-d0334b0fc79d"
-      },
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "--- SIMULATION ELYSIANE DEV --- \n",
-            "\n",
-            "Nom du Projet : Application Boutique Al Amiiri\n",
-            "Coût Matériaux : 350 €\n",
-            "Coût Main d'Œuvre : 900 € (30h à 30€/h)\n",
-            "Frais de Transport : 50 €\n",
-            "COÛT DE PRODUCTION TOTAL : 1300 €\n",
-            "BENEFICE NET (Marge 20%) : 260.0 €\n",
-            "PRIX FINAL À FACTURER : 1560.0 €\n"
-          ]
-        }
-      ],
-      "source": [
-        "# =========================================================\n",
-        "# MODULE B : MOTEUR D'ESTIMATION FINANCIÈRE PRO - V1.0\n",
-        "# =========================================================\n",
-        "\n",
-        "def generer_estimation_projet(nom_projet, cout_materiaux, heures_travail, taux_horaire=25, frais_transport=0):\n",
-        "    \"\"\"\n",
-        "    Calcule l'estimation financière complète d'un projet avec une marge de 20%.\n",
-        "    Retourne un rapport financier détaillé.\n",
-        "    \"\"\"\n",
-        "    # 1. Calcul de la main-d'œuvre\n",
-        "    cout_main_doeuvre = heures_travail * taux_horaire\n",
-        "\n",
-        "    # 2. Calcul du coût brut total (Production)\n",
-        "    cout_production = cout_materiaux + cout_main_doeuvre + frais_transport\n",
-        "\n",
-        "    # 3. Calcul de la marge bénéficiaire (20%)\n",
-        "    marge_profit = cout_production * 0.20\n",
-        "\n",
-        "    # 4. Prix de vente final conseillé pour le client\n",
-        "    prix_final_client = cout_production + marge_profit\n",
-        "\n",
-        "    # Structure des données du rapport\n",
-        "    rapport_financier = {\n",
-        "        \"Nom du Projet\": nom_projet,\n",
-        "        \"Coût Matériaux\": f\"{cout_materiaux} €\",\n",
-        "        \"Coût Main d'Œuvre\": f\"{cout_main_doeuvre} € ({heures_travail}h à {taux_horaire}€/h)\",\n",
-        "        \"Frais de Transport\": f\"{frais_transport} €\",\n",
-        "        \"COÛT DE PRODUCTION TOTAL\": f\"{cout_production} €\",\n",
-        "        \"BENEFICE NET (Marge 20%)\": f\"{marge_profit} €\",\n",
-        "        \"PRIX FINAL À FACTURER\": f\"{prix_final_client} €\"\n",
-        "    }\n",
-        "\n",
-        "    return rapport_financier\n",
-        "\n",
-        "# =========================================================\n",
-        "# ZONE DE TEST (Modifie les chiffres pour tester sur ton mobile)\n",
-        "# =========================================================\n",
-        "print(\"--- SIMULATION ELYSIANE DEV --- \\n\")\n",
-        "\n",
-        "# Exemple : Création d'un projet de développement d'application ou de rénovation\n",
-        "mon_estimation = generer_estimation_projet(\n",
-        "    nom_projet=\"Application Boutique Al Amiiri\",\n",
-        "    cout_materiaux=350,       # Achats de serveurs, thèmes, outils, etc.\n",
-        "    heures_travail=30,        # Nombre d'heures que tu vas passer à coder\n",
-        "    taux_horaire=30,          # Ton prix par heure (30€/h)\n",
-        "    frais_transport=50        # Déplacements ou frais internet\n",
-        ")\n",
-        "\n",
-        "# Affichage propre du rapport sur ton écran\n",
-        "for cle, valeur in mon_estimation.items():\n",
-        "    print(f\"{cle} : {valeur}\")"
       ]
     },
     {
